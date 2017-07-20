@@ -1,0 +1,10 @@
+<ul class="nav nav-sidebar">
+	<li [class.active]="active === 0">
+		<a [click]="changeActive(0)" [router-link]=["/books"]>Books</a>
+		<span *ngIf="active === 0" class="sr-only">(current)</span>
+	</li>
+	<li [class.active]="active === 1">
+		<a [click]="changeActive(1)" [router-link]=["/add-book"]>Add Book</a>
+		<span *ngIf="active === 1" class="sr-only">(current)</span>
+	</li>
+</ul>

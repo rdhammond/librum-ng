@@ -1,0 +1,26 @@
+<h1>Books</h1>
+<h2 *ngIf="books.length === 0" class="text-center text-muted">No Results Found</h2>
+<div *ngIf="books.length !== 0">
+	<pager></pager>
+	<table class="books table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Cover</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Year</th>
+				<th>Est. Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let book of books">
+				<td class="cover"><img [src]="book.thumbnailUrl" aria-hidden="true"/></td>
+				<td class="title">{{book.title}}</td>
+				<td class="author">{{book.author}}</td>
+				<td class="year">{{book.year}}</td>
+				<td class="estValue">{{book.estValue | currency:'USD':true:1.0-0 }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<pager></pager>
+</div>
