@@ -1,0 +1,44 @@
+<div id="bookDetails" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 id="title" class="modal-title">{{book.title}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12 col-md-4 cover">
+							<img class="img-responsive" class="img-thumbnail" [src]="book.coverUrl" />
+						</div>
+						<div class="col-sm-12 col-md-8 details">
+							<dl class="dl-horizontal">
+								<dt>Author</dt>
+								<dd>{{book.author}}</dd>
+								<dt>Publisher</dt>
+								<dd>{{book.publisher}}</dd>
+								<dt>Year of Publication</dt>
+								<dd>{{book.year}}</dd>
+								<dt>Estimated Value</dt>
+								<dd>{{book.estValue | currency:'USD':true:1.0-0}}</dd>
+							</dl>
+							<div class="from-group">
+								<label for="notes">Notes</label>
+								<textarea [(ngModel)]="book.notes" class="form-control" placeholder="Notes (opt.)" rows="5"></textarea>
+							</div>
+							<div class="links">
+								<a [href]="titleGoogleUrl()" target="_blank">Search for more info on title</a>
+								<a [href]="authorGoogleUrl()" target="_blank">Search for more info on author</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button (click)="saveNotes()" class="btn btn-default" type="button">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<h1>Add Book</h1>
+<form class="container">
+	<div class="row">
+		<div class="col-md-3 photo">
+			<div class="photo-upload">
+				<div class="preview">
+					<img [src]="thumbSrc" class="cover center-block" />
+				</div>
+				<div class="controls text-center">
+					<input [src]="coverFile" type="file" />
+					<button (click)="loadPreview()" class="selectfile btn btn-default">Change Cover</button>
+					<p class="help-block">Cover changes are not permanent until book is added.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9 data">
+			<div class="form-group">
+				<label for="title">Book Title</label>
+				<input [(ngModel)]="book.title" class="form-control" type="text" placeholder="Title (required)" required="true" />
+			</div>
+			<div class="form-group">
+				<label for="author">Author</label>
+				<input [(ngModel)]="book.author" class="form-control" type="text" placeholder="Author (required)" required="true" />
+			</div>
+			<div class="form-group">
+				<label for="year">Year</label>
+				<div class="row">
+					<div class="col-md-10">
+						<input [(ngModel)]="book.year" class="form-control" type="number" placeholder="year" min-value="1" />
+					</div>
+					<div class="col-md-2">
+						<select [(ngModel)]="book.era" class="form-control">
+							<option></option>
+							<option>CE</option>
+							<option>BCE</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="publisher">Publisher</label>
+				<input [(ngModel)]="publisher" class="form-control" type="text" placeholder="Publisher" />
+			</div>
+			<div class="form-group">
+				<label for="estValue">Estimated Value</label>
+				<div class="input-group">
+					<span class="input-group-addon">$</span>
+					<input [(ngModel)]="book.estValue" class="form-control" type="number" placeholder="Value" min-value="0" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-right">
+			<button (click)="addBook()" class="btn btn-primary">Add</button>
+		</div>
+	</div>
+</form>
