@@ -7,9 +7,9 @@
 		<form class="navbar-form navbar-right form-inline">
 			<div class="form-group">
 				<label class="sr-only" for="search">Search Keywords</label>
-				<input [(ngModel)]="search" id="search" type="text" placeholder="Keywords" />
+				<input [(ngModel)]="filter" type="text" placeholder="Keywords" />
 			</div>
-			<button (click)="onFilter" class="btn btn-default">Filter</button>
+			<button (click)="apply()" class="btn btn-default">Filter</button>
 		</form>
 	</div>
 </nav>

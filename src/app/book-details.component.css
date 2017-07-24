@@ -1,0 +1,10 @@
+#bookDetails .modal-body .links {
+		text-align: center;
+}
+	#bookDetails .modal-body .links a {
+		display: block;
+	}
+
+#notes {
+	margin-bottom: 1em;
+}
