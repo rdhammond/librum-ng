@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let book of books">
+			<tr *ngFor="let book of page" (click)="showDetails(book.id)">
 				<td class="cover"><img [src]="book.thumbnailUrl" aria-hidden="true"/></td>
 				<td class="title">{{book.title}}</td>
 				<td class="author">{{book.author}}</td>
@@ -22,5 +22,5 @@
 			</tr>
 		</tbody>
 	</table>
-	<pager></pager>
+	<pager [bottom]="true"></pager>
 </div>

@@ -1,4 +1,4 @@
-import { Injectable, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BooksService }  from './books.service';
 
 @Component({
@@ -8,12 +8,11 @@ import { BooksService }  from './books.service';
 	providers: [ BooksService ]
 })
 export class SearchBarComponent {
-	filter = '';
+	filter: string;
 
 	constructor(private books: BooksService) { }
 	
-	onFilter() {
+	apply() {
 		this.books.setFilter(filter);
-		this.books.refresh();
 	}
 }

@@ -1,4 +1,4 @@
-import { Injectable, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BooksService }  from './books.service';
 
 import { GoogleUrlPipe } from './google-url.pipe';
