@@ -14,7 +14,7 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let book of page" (click)="showDetails(book.id)">
-				<td class="cover"><img [src]="book.thumbnailUrl" aria-hidden="true"/></td>
+				<td class="cover"><img [src]="book | thumbnailUrl" aria-hidden="true"/></td>
 				<td class="title">{{book.title}}</td>
 				<td class="author">{{book.author}}</td>
 				<td class="year">{{book.year}}</td>

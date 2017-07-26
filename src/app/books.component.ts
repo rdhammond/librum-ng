@@ -1,17 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { PageService }  from './page.service';
 import { DetailsService } from './details.service';
+import { PageService }  from './page.service';
 
 import { Book } from './book';
 
 @Component({
 	templateUrl: './books.component.html',
 	styleUrls: [ './books.component.css' ],
-	providers: [ PageService, DetailsService ]
+	providers: [ PageService, DetailsService ],
+	pipes: [ ThumbnailUrlPipe ]
 })
 export class BooksComponent implements OnInit, OnDestroy {
-	books: Book[];
+	books: Book[] = [];
 	pageChanged: Subscription;
 
 	get show: boolean {
@@ -20,9 +21,7 @@ export class BooksComponent implements OnInit, OnDestroy {
 
 	constructor(private pageSvc: PageService,
 		private detailsSvc: DetailsService)
-	{
-		books = [];
-	}
+	{ }
 
 	ngOnInit(): void {
 		this.pageChanged = this.pageSvc.pageChanged()
@@ -34,6 +33,6 @@ export class BooksComponent implements OnInit, OnDestroy {
 	}
 
 	showDetails(id: string): void {
-		this.detailsService.setBook(id);
+		this.detailsSvc.setBook(id);
 	}
 }

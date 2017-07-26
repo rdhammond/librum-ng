@@ -6,7 +6,16 @@ import { Component } from '@angular/core';
 	styleUrls: ['sidebar.component.css']
 })
 export class SidebarComponent {
+	const Tabs = {
+		Books: 'books',
+		AddBook: 'add-book'
+	};
+
 	active: string;
+
+	constructor() {
+		active = this.Tabs.Books;
+	}
 
 	changeActive(newActive: string) {
 		this.active = newActive;

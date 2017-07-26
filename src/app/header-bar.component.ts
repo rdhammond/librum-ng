@@ -8,7 +8,7 @@ import { PageService }  from './page.service';
 	providers: [ PageService ]
 })
 export class SearchBarComponent {
-	filter: string;
+	filter: string = '';
 
 	constructor(private pageSvc: PageService) { }
 	

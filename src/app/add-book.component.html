@@ -7,7 +7,7 @@
 					<img [src]="thumbSrc" class="cover center-block" />
 				</div>
 				<div class="controls text-center">
-					<input id="coverFile" (change)="loadPreview()" [src]="coverFile" type="file" />
+					<input [(ngModel)]="book.cover" id="coverFile" (change)="loadPreview()" type="file" />
 					<button (click)="selectCover()" class="selectfile btn btn-default">Change Cover</button>
 					<p class="help-block">Cover changes are not permanent until book is added.</p>
 				</div>

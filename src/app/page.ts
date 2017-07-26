@@ -1,5 +1,5 @@
 export class Page {
-	pageNum: number;
-	maxPages: number;
+	current: number;
+	max: number;
 	books: Book[];
 }

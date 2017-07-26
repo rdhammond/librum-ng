@@ -7,7 +7,7 @@
 			</a>
 		</li>
 		<li *ngFor="let page in pageNums" [class.active]="isActive(page)">
-			<a (click)="goPage(page)" class="page">{{page}}</a>
+			<a (click)="goPage(page)" class="page">{{page + 1}}</a>
 			<span *ngIf="isActive(page)" class="sr-only">(current)</span>
 		</li>
 		<li [class.disabled]="nextDisabled">

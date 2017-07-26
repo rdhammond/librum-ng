@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+
 import { DetailsService }  from './details.service';
 
+import { CoverUrlPipe } from './cover-url.pipe';
 import { GoogleUrlPipe } from './google-url.pipe';
 
 import { Book } from './book';
@@ -13,7 +15,7 @@ import $ from 'jquery';
 	templateUrl: './book-details.component.html',
 	styleUrls: [ './book-details.component.css' ],
 	providers: [ DetailsService ],
-	pipes: [ GoogleUrlPipe ]
+	pipes: [ CoverUrlPipe, GoogleUrlPipe ]
 })
 export class BookDetailsComponent implements OnInit, OnDestroy {
 	book: Book;

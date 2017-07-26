@@ -10,27 +10,27 @@ import { PageService }  from './page.service';
 export class BooksComponent implements OnInit, OnDestroy {
 	@Input() bottom: boolean;
 
-	private page: Page;
+	private page = new Page();
 	private pageChanged: Subscription;
 
 	startPage: number;
 	endPage: number;
-	pageNums: number[];
+	pageRange: number[] = [];
 
 	get show: boolean {
-		return this.pageNums.length > 1;
+		return this.pageRange.length > 1;
 	}
 
 	get prevDisabled: boolean {
-		return this.currentPage > 0;
+		return this.page.current > 0;
 	}
 
 	get nextDisabled: boolean {
-		return this.currentPage >= this.endPage;
+		return this.page.current >= this.endPage;
 	}
 
 	get showFooter: boolean {
-		return this.bottom && this.currentPage === this.endPage;
+		return this.bottom && this.page.current === this.endPage;
 	}
 
 	get currentPage: number {
@@ -41,50 +41,50 @@ export class BooksComponent implements OnInit, OnDestroy {
 		return this.page.max;
 	}
 
-	constructor(private pageSvc: PageService) {
-		pageNums = [];
-	}
+	constructor(private pageSvc: PageService) { }
 
 	ngOnInit(): void {
 		this.pageChanged = this.pageSvc.pageChanged()
-			.subscribe(page => this.setPages(page.pageNum));
+			.subscribe(page => {
+				this.page = page;
+				this.setRange(page);
+			});
 	}
 
 	ngOnDestroy(): void {
 		this.pageChanged.unsubscribe();
 	}
 
-	setPages(cp: number): void {
-		this.startPage = Math.max(cp - 2, 0);
-		this.endPage = Math.min(cp + 2, this.maxPages);
-		this.currentPage = cp;
+	setRange(page: Page): void {
+		this.startPage = Math.max(page.current - 2, 0);
+		this.endPage = Math.min(page.current + 2, page.max - 1);
 		
-		var pageNums = [];
-		if (this.endPage < this.startPage) {
-			this.pageNums = pagesNums;
+		if (page.max < 1) {
+			this.pageRange = [];
 			return;
 		}
 
-		for (var i=startPage; i<=endPage; i++) {
-			pageNums.push(i);
+		let pageRange = [];
+		for (let i=startPage; i<=endPage; i++) {
+			pageRange.push(i);
 		}
-		this.pageNums = pageNums;
+		this.pageRange = pageRange;
 	}
 
 	goPrev(): void {
-		this.pageSvc.prevPage(this.page);
+		this.pageSvc.prevPage();
 	}
 	
 	goPage(pageNum: number): void {
-		this.pageSvc.setPage(this.page, pageNum);
+		this.pageSvc.setPage(pageNum);
 	}
 
 	goNext(): void {
-		this.pageSvc.nextPage(this.page);
+		this.pageSvc.nextPage();
 	}
 
-	isActive(page: number): boolean {
-		return this.currentPage === page;
+	isActive(pageNum: number): boolean {
+		return this.currentPage === pageNum;
 	}
 
 }

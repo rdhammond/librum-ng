@@ -5,6 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GoogleUrlPipe implements PipeTransform {
 	transform(keywords: string): string {
-		return 'https://www.google.com/?q=intext%3A%22' + keywords + '%22';
+		return `https://www.google.com/?q=intext%3A%22${keywords}%22`;
 	}
 }
