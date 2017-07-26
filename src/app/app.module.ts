@@ -10,7 +10,8 @@ import { HeaderBarComponent } from './header-bar.component';
 import { PagerComponent } from './pager.component';
 import { SideBarComponent } from './side-bar.component';
 
-import { BooksService } from './books.service';
+import { PageService } from './page.service';
+import { DetailsService } from './details.service';
 
 import { AppErrorHandler } from './app.errorhandler';
 
@@ -28,10 +29,12 @@ import { AppRoutingModule } from './app-routing.module';
 	BooksComponent,
 	BookDetailsComponent,
 	HeaderBarComponent,
+	PagerComponent,
 	SideBarComponent
   ],
   providers: [
-  	BooksService,
+  	PageService,
+	DetailsService,
 	{ provide: ErrorHandler, useClass: AppErrorHandler }
   ],
   bootstrap: [ AppComponent ]

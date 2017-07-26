@@ -1,23 +1,23 @@
-<nav *ngIf="pages.length > 1" class="text-center" aria-label="Page navigation">
+<nav *ngIf="show" class="text-center" aria-label="Page navigation">
 	<ul class="pagination">
-		<li [class.disabled]="currentPage === 0">
-			<span *ngIf="currentPage === 0" aria-hidden="true">&laquo;</span>
-			<a *ngIf="currentPage > 0" (click)="goPrev()" class="prev" aria-label="Previous">
+		<li [class.disabled]="prevDisabled">
+			<span *ngIf="prevDisabled" aria-hidden="true">&laquo;</span>
+			<a *ngIf="!prevDisabled" (click)="goPrev()" class="prev" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>
 			</a>
 		</li>
-		<li *ngFor="let page in pageNums" [class.active]="currentPage === page">
+		<li *ngFor="let page in pageNums" [class.active]="isActive(page)">
 			<a (click)="goPage(page)" class="page">{{page}}</a>
-			<span *ngIf="currentPage === page" class="sr-only">(current)</span>
+			<span *ngIf="isActive(page)" class="sr-only">(current)</span>
 		</li>
-		<li [class.disabled]="currentPage === endPage">
-			<span *ngIf="currentPage === endPage">&raquo;</span>
-			<a *ngIf="currentPage < endPage" (click)="goNext()" class="next" aria-label="Next">
+		<li [class.disabled]="nextDisabled">
+			<span *ngIf="nextDisabled">&raquo;</span>
+			<a *ngIf="!nextDisabled" (click)="goNext()" class="next" aria-label="Next">
 				<span aria-hidden="true">&raquo;</span>
 			</a>
 		</li>
 	</ul>
-	<div *ngIf="bottom && currentPage === endPage">
+	<div *ngIf="showFooter">
 		<h2 class="text-center text-muted">Didn't find what you're looking for?</h2>
 		<p class="text-center text-muted">Try narrowing your search to specific authors or years.</p>
 	</div>

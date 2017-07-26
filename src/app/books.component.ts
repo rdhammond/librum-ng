@@ -1,23 +1,31 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { BooksService }  from './books.service';
+import { PageService }  from './page.service';
 import { DetailsService } from './details.service';
+
+import { Book } from './book';
 
 @Component({
 	templateUrl: './books.component.html',
 	styleUrls: [ './books.component.css' ],
-	providers: [ BooksService, DetailsService ]
+	providers: [ PageService, DetailsService ]
 })
 export class BooksComponent implements OnInit, OnDestroy {
 	books: Book[];
 	pageChanged: Subscription;
 
-	constructor(private booksSvc: BooksService,
+	get show: boolean {
+		return books.length === 0;
+	}
+
+	constructor(private pageSvc: PageService,
 		private detailsSvc: DetailsService)
-	{ }
+	{
+		books = [];
+	}
 
 	ngOnInit(): void {
-		this.pageChanged = this.booksSvc.page()
+		this.pageChanged = this.pageSvc.pageChanged()
 			.subscribe(page => this.books = page.books);
 	}
 

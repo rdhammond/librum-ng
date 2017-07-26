@@ -1,10 +1,10 @@
 <ul class="nav nav-sidebar">
-	<li [class.active]="active === 'books'">
-		<a (click)="changeActive('books')" [router-link]=["/books"]>Books</a>
-		<span *ngIf="active === 'books'" class="sr-only">(current)</span>
+	<li [class.active]="isActive('books')">
+		<a (click)="changeActive('books')" routerLink="/books">Books</a>
+		<span *ngIf="isActive('books')" class="sr-only">(current)</span>
 	</li>
-	<li [class.active]="active === 'add-book'">
-		<a (click)="changeActive('add-book')" [router-link]=["/add-book"]>Add Book</a>
-		<span *ngIf="active === 'add-book'" class="sr-only">(current)</span>
+	<li [class.active]="isActive('add-book')">
+		<a (click)="changeActive('add-book')" routerLink="/add-book">Add Book</a>
+		<span *ngIf="isActive('add-book')" class="sr-only">(current)</span>
 	</li>
 </ul>

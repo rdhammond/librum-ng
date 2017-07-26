@@ -1,25 +1,52 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { BooksService }  from './books.service';
+import { PageService }  from './page.service';
 
 @Component({
 	selector: 'pager',
 	templateUrl: './pager.component.html',
-	providers: [ BooksService ]
+	providers: [ PageService ]
 })
 export class BooksComponent implements OnInit, OnDestroy {
 	@Input() bottom: boolean;
 
+	private page: Page;
+	private pageChanged: Subscription;
+
 	startPage: number;
 	endPage: number;
 	pageNums: number[];
-	currentPage: number;
-	pageChanged: Subscription;
 
-	constructor(private booksSvc: BooksService) { }
+	get show: boolean {
+		return this.pageNums.length > 1;
+	}
+
+	get prevDisabled: boolean {
+		return this.currentPage > 0;
+	}
+
+	get nextDisabled: boolean {
+		return this.currentPage >= this.endPage;
+	}
+
+	get showFooter: boolean {
+		return this.bottom && this.currentPage === this.endPage;
+	}
+
+	get currentPage: number {
+		return this.page.current;
+	}
+
+	get maxPages: number {
+		return this.page.max;
+	}
+
+	constructor(private pageSvc: PageService) {
+		pageNums = [];
+	}
 
 	ngOnInit(): void {
-		this.pageChanged = this.booksSvc.page()
+		this.pageChanged = this.pageSvc.pageChanged()
 			.subscribe(page => this.setPages(page.pageNum));
 	}
 
@@ -29,7 +56,7 @@ export class BooksComponent implements OnInit, OnDestroy {
 
 	setPages(cp: number): void {
 		this.startPage = Math.max(cp - 2, 0);
-		this.endPage = Math.min(cp + 2, this.booksSvc.maxPages());
+		this.endPage = Math.min(cp + 2, this.maxPages);
 		this.currentPage = cp;
 		
 		var pageNums = [];
@@ -45,14 +72,19 @@ export class BooksComponent implements OnInit, OnDestroy {
 	}
 
 	goPrev(): void {
-		this.booksSvc.prevPage();
+		this.pageSvc.prevPage(this.page);
 	}
 	
-	goPage(page: number): void {
-		this.booksSvc.setPage(page);
+	goPage(pageNum: number): void {
+		this.pageSvc.setPage(this.page, pageNum);
 	}
 
 	goNext(): void {
-		this.booksSvc.nextPage();
+		this.pageSvc.nextPage(this.page);
 	}
+
+	isActive(page: number): boolean {
+		return this.currentPage === page;
+	}
+
 }

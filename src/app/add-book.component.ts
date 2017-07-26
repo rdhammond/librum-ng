@@ -1,33 +1,35 @@
 import { Component } from '@angular/core';
-import { BooksService }  from './books.service';
+import { PageService }  from './page.service';
+
+import { Book } from './book';
 
 import $ from 'jquery';
-
-const DEFAULT_COVER = 'img/generic-book.jpg';
 
 @Component({
 	templateUrl: './add-book.component.html',
 	styleUrls: [ './add-book.component.css' ],
-	providers: [ BooksService ]
+	providers: [ PageService ]
 })
 export class AddBookComponent {
 	thumbSrc: string;
 	book: Book;
 	coverFile: any;
 
-	constructor(private booksSvc: BooksService) {
+	constructor(private pageSvc: PageService) {
 		this.reset();
 	}
 
 	addBook(): void {
 		// ** TODO: Validation
 		// ** TODO: Success message
-		this.booksSvc
+		this.pageSvc
 			.add(this.book, this.coverFile)
 			.then(() => this.reset());
 	}
 
 	private reset(): void {
+		const DEFAULT_COVER: string = 'img/generic-book.jpg';
+
 		this.thumbSrc = DEFAULT_COVER;
 		this.coverFile = null;
 		this.book = new Book();
@@ -38,7 +40,7 @@ export class AddBookComponent {
 	}
 
 	loadPreview(): void {
-		this.booksSvc
+		this.pageSvc
 			.loadPreview(this.coverFile)
 			.then(base64 => this.thumbSrc = base64);
 	}

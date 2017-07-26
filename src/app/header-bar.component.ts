@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { BooksService }  from './books.service';
+import { PageService }  from './page.service';
 
 @Component({
 	selector: 'header-bar',
 	templateUrl: './header-bar.component.html',
 	styleUrls: [ './header-bar.component.css' ],
-	providers: [ BooksService ]
+	providers: [ PageService ]
 })
 export class SearchBarComponent {
 	filter: string;
 
-	constructor(private books: BooksService) { }
+	constructor(private pageSvc: PageService) { }
 	
 	apply() {
-		this.books.setFilter(this.filter);
+		this.pageSvc.setFilter(this.filter);
 	}
 }

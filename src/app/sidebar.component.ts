@@ -11,4 +11,8 @@ export class SidebarComponent {
 	changeActive(newActive: string) {
 		this.active = newActive;
 	}
+
+	isActive(tab: string): boolean {
+		return active === tab;
+	}
 }

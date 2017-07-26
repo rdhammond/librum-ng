@@ -1,6 +1,6 @@
 <h1>Books</h1>
-<h2 *ngIf="books.length === 0" class="text-center text-muted">No Results Found</h2>
-<div *ngIf="books.length !== 0">
+<h2 *ngIf="!show" class="text-center text-muted">No Results Found</h2>
+<div *ngIf="show">
 	<pager></pager>
 	<table class="books table table-striped table-hover">
 		<thead>

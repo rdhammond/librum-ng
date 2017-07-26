@@ -4,6 +4,8 @@ import { DetailsService }  from './details.service';
 
 import { GoogleUrlPipe } from './google-url.pipe';
 
+import { Book } from './book';
+
 import $ from 'jquery';
 
 @Component({
@@ -20,7 +22,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
 	constructor(private detailsSvc: DetailsService) { }
 
 	ngOnInit(): void {
-		this.bookChanged = this.detailsSvc.book()
+		this.bookChanged = this.detailsSvc.bookChanged()
 			.subscribe(book => this.show(book));
 	}
 
