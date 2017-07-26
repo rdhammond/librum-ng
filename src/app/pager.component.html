@@ -6,7 +6,7 @@
 				<span aria-hidden="true">&laquo;</span>
 			</a>
 		</li>
-		<li *ngFor="let page in pageNums()" [class.active]="currentPage === page">
+		<li *ngFor="let page in pageNums" [class.active]="currentPage === page">
 			<a (click)="goPage(page)" class="page">{{page}}</a>
 			<span *ngIf="currentPage === page" class="sr-only">(current)</span>
 		</li>

@@ -1,23 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { BooksService }  from './books.service';
+import { DetailsService } from './details.service';
 
 @Component({
 	templateUrl: './books.component.html',
-	styleUrls: [ './books.component.css',
-	providers: [ BooksService ]
+	styleUrls: [ './books.component.css' ],
+	providers: [ BooksService, DetailsService ]
 })
-export class BooksComponent implements OnInit {
-	page: Observable<Book[]>;
+export class BooksComponent implements OnInit, OnDestroy {
+	books: Book[];
+	pageChanged: Subscription;
 
-	constructor(private booksSvc: BooksService) { }
+	constructor(private booksSvc: BooksService,
+		private detailsSvc: DetailsService)
+	{ }
 
 	ngOnInit(): void {
-		this.page = this.booksSvc.page
-			.switchMap(page => this.page = page);
+		this.pageChanged = this.booksSvc.page()
+			.subscribe(page => this.books = page.books);
+	}
+
+	ngOnDestroy(): void {
+		this.pageChanged.unsubscribe();
 	}
 
 	showDetails(id: string): void {
-		this.booksSvc.setDetails(id);
+		this.detailsService.setBook(id);
 	}
 }

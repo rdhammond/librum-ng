@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BooksService }  from './books.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { DetailsService }  from './details.service';
 
 import { GoogleUrlPipe } from './google-url.pipe';
 
@@ -8,24 +9,28 @@ import $ from 'jquery';
 @Component({
 	selector: 'book-details',
 	templateUrl: './book-details.component.html',
-	styleUrls: [ './book-details.component.css',
-	providers: [ BooksService ],
+	styleUrls: [ './book-details.component.css' ],
+	providers: [ DetailsService ],
 	pipes: [ GoogleUrlPipe ]
 })
-export class BookDetailsComponent {
-	private book: Book;
+export class BookDetailsComponent implements OnInit, OnDestroy {
+	book: Book;
+	bookChanged: Subscription;
 
-	constructor(private booksSvc: BooksService) { }
+	constructor(private detailsSvc: DetailsService) { }
 
 	ngOnInit(): void {
-		this.book = booksSvc.details
-			.switchMap(book => this.show(book));
+		this.bookChanged = this.detailsSvc.book()
+			.subscribe(book => this.show(book));
 	}
 
-	setDetails(book): void {
+	ngOnDestroy(): void {
+		this.bookChanged.unsubscribe();
+	}
+
+	show(book: Book): void {
 		if (!book) {
-			$('#bookDetails').modal('hide');
-			this.book = null;
+			this.close();
 			return;
 		}
 
@@ -33,8 +38,13 @@ export class BookDetailsComponent {
 		$('#bookDetails').modal('show');
 	}
 
-	saveNotes(): void {
-		this.booksSvc.saveNotes(this.book);
+	close(): void {
 		$('#bookDetails').modal('hide');
+		this.book = new Book();
+	}
+
+	saveNotes(): void {
+		this.detailsSvc.saveNotes(this.book)
+			.then(() => this.close());
 	}
 }

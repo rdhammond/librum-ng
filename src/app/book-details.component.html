@@ -2,7 +2,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				<button (click)="close()" class="close" type="button" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<h4 id="title" class="modal-title">{{book.title}}</h4>

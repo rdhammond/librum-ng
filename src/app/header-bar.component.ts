@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BooksService }  from './books.service';
 
 @Component({
@@ -13,6 +13,6 @@ export class SearchBarComponent {
 	constructor(private books: BooksService) { }
 	
 	apply() {
-		this.books.setFilter(filter);
+		this.books.setFilter(this.filter);
 	}
 }

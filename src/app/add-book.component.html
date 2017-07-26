@@ -7,8 +7,8 @@
 					<img [src]="thumbSrc" class="cover center-block" />
 				</div>
 				<div class="controls text-center">
-					<input [src]="coverFile" type="file" />
-					<button (click)="loadPreview()" class="selectfile btn btn-default">Change Cover</button>
+					<input id="coverFile" (change)="loadPreview()" [src]="coverFile" type="file" />
+					<button (click)="selectCover()" class="selectfile btn btn-default">Change Cover</button>
 					<p class="help-block">Cover changes are not permanent until book is added.</p>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 			</div>
 			<div class="form-group">
 				<label for="publisher">Publisher</label>
-				<input [(ngModel)]="publisher" class="form-control" type="text" placeholder="Publisher" />
+				<input [(ngModel)]="book.publisher" class="form-control" type="text" placeholder="Publisher" />
 			</div>
 			<div class="form-group">
 				<label for="estValue">Estimated Value</label>

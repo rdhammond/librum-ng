@@ -1,53 +1,58 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { BooksService }  from './books.service';
 
 @Component({
+	selector: 'pager',
 	templateUrl: './pager.component.html',
-	styleUrls: [ './pager.component.css',
 	providers: [ BooksService ]
 })
-export class BooksComponent implements OnInit {
-	startPage = 0;
-	endPage = -1;
-	pages: Array<number> = [];
-
+export class BooksComponent implements OnInit, OnDestroy {
 	@Input() bottom: boolean;
-	currentPage: Observable<number>;
+
+	startPage: number;
+	endPage: number;
+	pageNums: number[];
+	currentPage: number;
+	pageChanged: Subscription;
 
 	constructor(private booksSvc: BooksService) { }
 
 	ngOnInit(): void {
-		this.currentPage = this.booksSvc
-			.onPageChange(cp => this.pageChanged);
+		this.pageChanged = this.booksSvc.page()
+			.subscribe(page => this.setPages(page.pageNum));
 	}
 
-	pageChanged(cp: int): void {
+	ngOnDestroy(): void {
+		this.pageChanged.unsubscribe();
+	}
+
+	setPages(cp: number): void {
 		this.startPage = Math.max(cp - 2, 0);
 		this.endPage = Math.min(cp + 2, this.booksSvc.maxPages());
 		this.currentPage = cp;
 		
-		var pages = [];
+		var pageNums = [];
 		if (this.endPage < this.startPage) {
-			this.pages = pages;
+			this.pageNums = pagesNums;
 			return;
 		}
 
 		for (var i=startPage; i<=endPage; i++) {
-			pages.push(i);
+			pageNums.push(i);
 		}
-		this.pages = pages;
+		this.pageNums = pageNums;
 	}
 
 	goPrev(): void {
-		booksSvc.prevPage();
+		this.booksSvc.prevPage();
 	}
 	
-	goPage(page: int): void {
-		booksSvc.setPage(page);
+	goPage(page: number): void {
+		this.booksSvc.setPage(page);
 	}
 
 	goNext(): void {
-		booksSvc.nextPage();
+		this.booksSvc.nextPage();
 	}
 }

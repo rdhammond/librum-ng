@@ -1,0 +1,6 @@
+.main .books tbody tr {
+	cursor: pointer;
+}
+	.main .books tbody tr td {
+		vertical-align: middle;
+	}
